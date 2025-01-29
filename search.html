@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Search Bar</title>
+    <style>
+        /* Basic styling for the body */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f4f8;
+        }
+
+        /* Container for the search bar and names */
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for the names list */
+        #namesContainer {
+            margin-bottom: 20px;
+        }
+
+        /* Individual name styling */
+        .name {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Highlighted name styling */
+        .highlight {
+            background-color: #ffeb3b;
+            color: #000;
+        }
+
+        /* Search bar styling */
+        #searchBar {
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* Hover effect for names */
+        .name:hover {
+            background-color: #0101015e;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- innerHTML -->
+    <div class="container">
+        <div id="namesContainer">
+            <div class="name">Ali</div>
+            <div class="name">Dhaval</div>
+            <div class="name">Shyam</div>
+            <div class="name">Bansi</div>
+            <div class="name">Ishwar</div>
+            <div class="name">Dhruv</div>
+            <div class="name">Abhi</div>
+        </div>
+        <input type="text" id="searchBar" placeholder="Search names...">
+    </div>
+    <script>
+        // Event listener for the search bar input
+        document.getElementById('searchBar').addEventListener('input', function search() {
+            const searchValue = this.value.toLowerCase();
+            const names = document.getElementsByClassName('name');
+            const matchingNames = [];
+
+            // Loop through names to find matches
+            for (let i = 0; i < names.length; i++) {
+                const nameText = names[i].textContent.toLowerCase();
+                if (nameText.includes(searchValue) && searchValue !== '') {
+                    names[i].classList.add('highlight'); // Highlight matching names
+                    matchingNames.push(names[i]);
+                }
+                else {
+                    names[i].classList.remove('highlight'); // Remove highlight if not matching
+                }
+            }
+
+            // Move matching names to the top of the list
+            for (let i = 0; i < matchingNames.length; i++) {
+                matchingNames[i].remove();
+                document.getElementById('namesContainer').insertBefore(matchingNames[i], document.getElementById('namesContainer').firstChild);
+            }
+        });
+    </script>
+</body>
+
+</html>
